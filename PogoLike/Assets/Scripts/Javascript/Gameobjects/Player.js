@@ -50,6 +50,9 @@ function Player(pos)
 	this.velocity = 1;
 	this.velocityScale = 0.2;
 	this.score = 0;
+	this.isMoving = false;
+	this.splahPosition = new Vector();
+	this.splahScale = 0;
 
 	this.Transform = {};
 	this.Transform.RelativePosition = new Vector();
@@ -340,6 +343,7 @@ function Player(pos)
 			// operation start
 			this.Renderer.Material.Source = Images["pig"]
 			this.color = Math.Random.ColorRGBA(.3);
+			
 			this.SetPosition(((this.gridPos.x) * this.grid.caseLength) + this.grid.caseLength/2 ,
 							((this.gridPos.y) * this.grid.caseLength) + this.grid.caseLength/2);
 			this.SetSize(this.grid.caseLength, this.grid.caseLength);
@@ -427,57 +431,60 @@ function Player(pos)
     // 			 500);
 	this.Update = function() 
 	{
-		if (this.left && this.Transform.RelativePosition.x >= this.goalx) {
-			this.Transform.RelativePosition.x -= this.velocity;
-			this.Transform.Scale.x += this.velocityScale;
-			this.Transform.Scale.y += this.velocityScale;
+		if (this.isMoving) {
+			if (this.left && this.Transform.RelativePosition.x >= this.goalx) {
+				this.Transform.RelativePosition.x -= this.velocity;
+				this.Transform.Scale.x += this.velocityScale;
+				this.Transform.Scale.y += this.velocityScale;
 			if(this.Transform.RelativePosition.x >= (this.goalx - this.grid.caseLength/2)){
 			 
 			 	this.velocityScale = -0.2; 
 			 }
-		} else {
-			this.left = false;
-			this.velocityScale = 0.2;
-		}
+			} else {
+				this.left = false;
+				this.velocityScale = 0.2;
+			}
 
-		if (this.up && this.Transform.RelativePosition.y >= this.goaly) {
-			this.Transform.RelativePosition.y -= this.velocity;
-			this.Transform.Scale.x += this.velocityScale;
-			this.Transform.Scale.y += this.velocityScale;
-			if(this.Transform.RelativePosition.y >= (this.goaly - this.grid.caseLength/2)){
-			 
-			 	this.velocityScale = -0.2; 
-			 }
-		} else {
-			this.up = false;
-			this.velocityScale = 0.2;
-		}
+			if (this.up && this.Transform.RelativePosition.y >= this.goaly) {
+					this.Transform.RelativePosition.y -= this.velocity;
+					this.Transform.Scale.x += this.velocityScale;
+					this.Transform.Scale.y += this.velocityScale;
+				if(this.Transform.RelativePosition.y >= (this.goaly - this.grid.caseLength/2)){
+				 
+				 	this.velocityScale = -0.2; 
+				 }
+			} else {
+				this.up = false;
+				this.velocityScale = 0.2;
+			}
 
-		if (this.right && this.Transform.RelativePosition.x <= this.goalx) {
-			this.Transform.RelativePosition.x += this.velocity;
-			this.Transform.Scale.x += this.velocityScale;
-			this.Transform.Scale.y += this.velocityScale;
-			if(this.Transform.RelativePosition.x >= (this.goalx - this.grid.caseLength/2)){
-			 
-			 	this.velocityScale = -0.2; 
-			 }
-		} else {
-			this.right = false;
-			this.velocityScale = 0.2;
-		}
+			if (this.right && this.Transform.RelativePosition.x <= this.goalx) {
+					this.Transform.RelativePosition.x += this.velocity;
+					this.Transform.Scale.x += this.velocityScale;
+					this.Transform.Scale.y += this.velocityScale;
+				if(this.Transform.RelativePosition.x >= (this.goalx - this.grid.caseLength/2)){
+				 
+				 	this.velocityScale = -0.2; 
+				 }
+			} else {
+				this.right = false;
+				this.velocityScale = 0.2;
+			}
 
-		if (this.down && this.Transform.RelativePosition.y <= this.goaly) {
-			this.Transform.RelativePosition.y += this.velocity;
-			this.Transform.Scale.x += this.velocityScale;
-			this.Transform.Scale.y += this.velocityScale;
-			if(this.Transform.RelativePosition.y <= (this.goaly - this.grid.caseLength/2)){
-			 
-			 	this.velocityScale = -0.2; 
-			 }
-		} else {
-			this.down = false;
-			this.velocityScale = 0.2;
-		}
+			if (this.down && this.Transform.RelativePosition.y <= this.goaly) {
+					this.Transform.RelativePosition.y += this.velocity;
+					this.Transform.Scale.x += this.velocityScale;
+					this.Transform.Scale.y += this.velocityScale;
+				if(this.Transform.RelativePosition.y <= (this.goaly - this.grid.caseLength/2)){
+				 
+				 	this.velocityScale = -0.2; 
+				 }
+			} else {
+				this.down = false;
+				this.velocityScale = 0.2;
+			}
+		}		
+
 		if(this.canMove){
 			// Left
 			if (Input.KeysDown[37] && this.gridPos.x > 0) {
@@ -485,6 +492,7 @@ function Player(pos)
 				this.goalx = this.Transform.RelativePosition.x - this.grid.caseLength;
 				this.goaly = this.Transform.RelativePosition.y;
 				this.canMove = false;
+				this.isMoving = true;
 				this.left = true;
 			} 
 			// Top
@@ -493,6 +501,7 @@ function Player(pos)
 				this.goaly = this.Transform.RelativePosition.y - this.grid.caseLength;
 				this.goalx = this.Transform.RelativePosition.x;
 				this.canMove = false;
+				this.isMoving = true;
 				this.up = true;
 			}
 			// Right
@@ -501,6 +510,7 @@ function Player(pos)
 				this.goalx = this.Transform.RelativePosition.x + this.grid.caseLength;
 				this.goaly = this.Transform.RelativePosition.y;
 				this.canMove = false;
+				this.isMoving = true;
 				this.right = true;
 			}
 			// Both
@@ -509,25 +519,48 @@ function Player(pos)
 				this.goaly = this.Transform.RelativePosition.y + this.grid.caseLength;
 				this.goalx = this.Transform.RelativePosition.x;
 				this.canMove = false;
+				this.isMoving = true;
 				this.down = true;
 			} 
-
 		} 
 
 		if(!this.left && !this.up && !this.right && !this.down){
 			
-			this.grid.Tiles[IndexFromCoord(this.gridPos.x,this.gridPos.y, this.grid.cases)] = this.color;
+			this.splahPosition.x = this.Transform.RelativePosition.x;
+			this.splahPosition.y = this.Transform.RelativePosition.y;
+
+			if (this.grid.Tiles[IndexFromCoord(this.gridPos.x,this.gridPos.y, this.grid.cases)] != this.color) {
+
+				this.splahScale += .1;
+				ctx.fillStyle = this.color;
+				ctx.fillRect(this.splahPosition.x - (this.grid.caseLength * this.splahScale) * this.Transform.Pivot.x,
+							 this.splahPosition.y - (this.grid.caseLength * this.splahScale) * this.Transform.Pivot.y,
+							 this.grid.caseLength * this.splahScale,
+							 this.grid.caseLength * this.splahScale);
+			} else {
+				this.canMove = true;
+			}
+
+			if (this.splahScale >= 1) {
+				this.splahScale = 0;
+				this.grid.Tiles[IndexFromCoord(this.gridPos.x,this.gridPos.y, this.grid.cases)] = this.color;
+			}
+
+			//this.grid.Tiles[IndexFromCoord(this.gridPos.x,this.gridPos.y, this.grid.cases)] = this.color;
+
+			this.isMoving = false;
 			this.catchCoin();
 		}
 
-
 		if(!Input.KeysDown[37] && !Input.KeysDown[38] && !Input.KeysDown[39] && !Input.KeysDown[40]
 			&& !this.left && !this.up && !this.right && !this.down){
-			this.canMove = true;
+			
 			this.Transform.RelativePosition.x = this.goalx;
 			this.Transform.RelativePosition.y = this.goaly;
 		}
+
 		this.Renderer.Draw();
+
 		this.PostUpdate();	
 	};
 	/**
