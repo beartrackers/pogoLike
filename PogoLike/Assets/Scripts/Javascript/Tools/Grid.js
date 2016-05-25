@@ -15,7 +15,7 @@ function Grid(_x, _y, _length, _cases)
 	this.length = _length;
 	this.cases = _cases;
 	this.caseLength = this.length / this.cases
-	this.Tiles = new Array(this.cases * this.cases).fill(0);
+	this.Tiles = new Array(this.cases * this.cases).fill("rgb(255,255,255");
 	this.BestPath = null;
 
 /**
@@ -32,12 +32,15 @@ function Grid(_x, _y, _length, _cases)
 		{
 			for (var j = 0; j * this.caseLength < this.length; j++) 
 			{
+				ctx.fillStyle = this.Tiles[IndexFromCoord(i,j, this.cases)];
+				ctx.fillRect(this.x + i * this.caseLength, this.y + j * this.caseLength, this.caseLength, this.caseLength);
 				ctx.strokeRect(this.x + i * this.caseLength, this.y + j * this.caseLength, this.caseLength, this.caseLength);
 				// Draw Obstacles
-				if (this.Tiles[j * this.cases + i] == 1) {
-					ctx.fillStyle = '#000000';
-					ctx.fillRect(this.x + i * this.caseLength, this.y + j * this.caseLength, this.caseLength, this.caseLength);
-				}
+				// if (this.Tiles[j * this.cases + i] == 1) {
+				// 	ctx.fillStyle = '#000000';
+				// 	ctx.fillRect(this.x + i * this.caseLength, this.y + j * this.caseLength, this.caseLength, this.caseLength);
+				// }
+				
 			}	
 		}
 	}

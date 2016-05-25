@@ -33,7 +33,7 @@ var WalkableTiles = [];
 var ImagesPath = 
 [
 	// { name:"monImage",path: "background/image.png"},
-	{ name:"Boy",path: "Examples/PlanetCute/Character Boy.png"},
+	{ name:"Boy",path: "Examples/PlanetCute/CharacterBoy.png"},
 	{ name:"Cat",path: "Examples/PlanetCute/Character Cat Girl.png"},
 	{ name:"Horn",path: "Examples/PlanetCute/Character Horn Girl.png"},
 	{ name:"Pink",path: "Examples/PlanetCute/Character Pink Girl.png"},
@@ -68,6 +68,17 @@ var ImagesPath =
 	{ name:"Fond",path: "Examples/Fond.jpg"},
 	{ name:"bgDemo",path: "Examples/bgDemo.jpg"},
 	{ name:"alphaMask3",path: "Examples/AlphaMask/mask.png"},
-	{ name:"sprite",path: "Examples/drake.png"}
+	{ name:"sprite",path: "Examples/drake.png"},
+	{ name:"elephant",path: "animalpack/elephant.png"},
+	{ name:"giraffe",path: "animalpack/giraffe.png"},
+	{ name:"hippo",path: "animalpack/hippo.png"},
+	{ name:"monkey",path: "animalpack/monkey.png"},
+	{ name:"panda",path: "animalpack/panda.png"},
+	{ name:"parrot",path: "animalpack/parrot.png"},
+	{ name:"penguin",path: "animalpack/penguin.png"},
+	{ name:"pig",path: "animalpack/pig.png"},
+	{ name:"rabbit",path: "animalpack/rabbit.png"},
+	{ name:"snake",path: "animalpack/snake.png"}
+
 ];
 var Images = {};

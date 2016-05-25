@@ -52,7 +52,8 @@ function Loader()
 			Scenes["ScenePhysics_Debug"]  = new ScenePhysics_Debug();
 			Scenes["ScenePathFinding"]  = new ScenePathFinding();
 			Scenes["SceneSave"]  = new SceneSave();
-			Scenes["SceneIA"]  = new SceneIA();			
+			Scenes["SceneIA"]  = new SceneIA();		
+			Scenes["ScenePlatform"]  = new ScenePlatform();
 
 			LoadImages();
 			this.started = true;

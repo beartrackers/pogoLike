@@ -93,7 +93,7 @@ function ImageLoaded(_imageLoaded)
 		Application.LoadedScene = Scenes["SceneName"];
 	*/
 
-	Application.LoadedScene = Scenes["SceneHub"];
+	Application.LoadedScene = Scenes["ScenePlatform"];
 }
 /**
  * 
@@ -101,7 +101,7 @@ function ImageLoaded(_imageLoaded)
  * set window innerHeight to canvas height
  * 
  * */
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width = window.innerWidth - 50;
+canvas.height = window.innerHeight - 50;
 
 Run();
