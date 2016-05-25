@@ -427,33 +427,10 @@ function Player(pos)
     // 			 500);
 	this.Update = function() 
 	{
-		// if (this.left && this.Transform.RelativePosition.x >= this.goalx) {
-		// 	this.Transform.RelativePosition.x -= this.velocity;
-		// } else {
-		// 	this.left = false;
-		// }
-
-		// if (this.up && this.Transform.RelativePosition.y >= this.goaly) {
-		// 	this.Transform.RelativePosition.y -= this.velocity;
-		// } else {
-		// 	this.up = false;
-		// }
-
-		// if (this.right && this.Transform.RelativePosition.x <= this.goalx) {
-		// 	this.Transform.RelativePosition.x += this.velocity;
-		// } else {
-		// 	this.right = false;
-		// }
-
-		// if (this.down && this.Transform.RelativePosition.y <= this.goaly) {
-		// 	this.Transform.RelativePosition.y += this.velocity;
-		// } else {
-		// 	this.down = false;
-		// }
 		if (this.left && this.Transform.RelativePosition.x >= this.goalx) {
 			this.Transform.RelativePosition.x -= this.velocity;
-			this.Transform.Scale.x -= this.velocityScale;
-			this.Transform.Scale.y -= this.velocityScale;
+			this.Transform.Scale.x += this.velocityScale;
+			this.Transform.Scale.y += this.velocityScale;
 			if(this.Transform.RelativePosition.x >= (this.goalx - this.grid.caseLength/2)){
 			 
 			 	this.velocityScale = -0.2; 
@@ -465,20 +442,41 @@ function Player(pos)
 
 		if (this.up && this.Transform.RelativePosition.y >= this.goaly) {
 			this.Transform.RelativePosition.y -= this.velocity;
+			this.Transform.Scale.x += this.velocityScale;
+			this.Transform.Scale.y += this.velocityScale;
+			if(this.Transform.RelativePosition.y >= (this.goaly - this.grid.caseLength/2)){
+			 
+			 	this.velocityScale = -0.2; 
+			 }
 		} else {
 			this.up = false;
+			this.velocityScale = 0.2;
 		}
 
 		if (this.right && this.Transform.RelativePosition.x <= this.goalx) {
 			this.Transform.RelativePosition.x += this.velocity;
+			this.Transform.Scale.x += this.velocityScale;
+			this.Transform.Scale.y += this.velocityScale;
+			if(this.Transform.RelativePosition.x >= (this.goalx - this.grid.caseLength/2)){
+			 
+			 	this.velocityScale = -0.2; 
+			 }
 		} else {
 			this.right = false;
+			this.velocityScale = 0.2;
 		}
 
 		if (this.down && this.Transform.RelativePosition.y <= this.goaly) {
 			this.Transform.RelativePosition.y += this.velocity;
+			this.Transform.Scale.x += this.velocityScale;
+			this.Transform.Scale.y += this.velocityScale;
+			if(this.Transform.RelativePosition.y <= (this.goaly - this.grid.caseLength/2)){
+			 
+			 	this.velocityScale = -0.2; 
+			 }
 		} else {
 			this.down = false;
+			this.velocityScale = 0.2;
 		}
 		if(this.canMove){
 			// Left
