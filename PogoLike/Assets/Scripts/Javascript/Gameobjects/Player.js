@@ -48,6 +48,7 @@ function Player(pos)
 	this.goalx = 0;
 	this.goaly = 0;
 	this.velocity = 1;
+	this.velocityScale = 0.2;
 	this.score = 0;
 
 	this.Transform = {};
@@ -451,10 +452,15 @@ function Player(pos)
 		// }
 		if (this.left && this.Transform.RelativePosition.x >= this.goalx) {
 			this.Transform.RelativePosition.x -= this.velocity;
-			
-			
+			this.Transform.Scale.x -= this.velocityScale;
+			this.Transform.Scale.y -= this.velocityScale;
+			if(this.Transform.RelativePosition.x >= (this.goalx - this.grid.caseLength/2)){
+			 
+			 	this.velocityScale = -0.2; 
+			 }
 		} else {
 			this.left = false;
+			this.velocityScale = 0.2;
 		}
 
 		if (this.up && this.Transform.RelativePosition.y >= this.goaly) {
