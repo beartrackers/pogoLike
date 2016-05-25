@@ -78,7 +78,8 @@ var ImagesPath =
 	{ name:"penguin",path: "animalpack/penguin.png"},
 	{ name:"pig",path: "animalpack/pig.png"},
 	{ name:"rabbit",path: "animalpack/rabbit.png"},
-	{ name:"snake",path: "animalpack/snake.png"}
+	{ name:"snake",path: "animalpack/snake.png"},
+	{ name:"coin",path: "coin.png"}
 
 ];
 var Images = {};

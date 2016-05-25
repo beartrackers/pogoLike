@@ -26,30 +26,18 @@
  *
  *
  * */
-function Player(pos) 
+function Coin(pos) 
 {
-	this.name = "Player";
+	this.name = "Coin";
 	this.enabled = true;
 	this.started = false;
 	this.rendered = true;
 	this.fixedToCamera = true;
 
 	this.MouseOffset = new Vector();
-
+	this.grid = Application.LoadedScene.grid;
 	this.Parent = null;
 	this.gridPos = pos;
-	this.color = "";
-	this.grid = Application.LoadedScene.grid;
-	this.canMove = true;
-	this.left = false;
-	this.up = false;
-	this.right = false;
-	this.down = false;
-	this.goalx = 0;
-	this.goaly = 0;
-	this.velocity = 1;
-	this.score = 0;
-
 	this.Transform = {};
 	this.Transform.RelativePosition = new Vector();
 	this.Transform.Position = new Vector();
@@ -337,16 +325,11 @@ function Player(pos)
 	{
 		if (!this.started) {
 			// operation start
-			this.Renderer.Material.Source = Images["pig"]
-			this.color = Math.Random.ColorRGB();
+			this.Renderer.Material.Source = Images["coin"];
 			this.SetPosition(((this.gridPos.x) * this.grid.caseLength) + this.grid.caseLength/2 ,
 							((this.gridPos.y) * this.grid.caseLength) + this.grid.caseLength/2);
 			this.SetSize(this.grid.caseLength, this.grid.caseLength);
 			this.SetPivot(.5,.5);
-			this.velocity = 5;
-			this.goalx = this.Transform.RelativePosition.x;
-			this.goaly = this.Transform.RelativePosition.y;
-
 			if (this.Physics.colliderIsSameSizeAsTransform) 
 			{
 				this.Physics.Collider = this.Transform;
@@ -410,118 +393,8 @@ function Player(pos)
 	 *
 	 * Call postUpdate function (each frame)
 	 * */
-	 /**
-     * @memberof Tools/Tween
-     * @function Linear
-     * @param {Number} _t - current time
-     * @param {Number} _b - start value
-     * @param {Number} _c - change in value
-     * @param {Number} _d - duration
-     *  
-     * */
-     
-    // Tween.Linear(Date.now(),
-    // 			this.Transform.RelativePosition.x, 
-    // 			this.Transform.RelativePosition.x - this.grid.caseLength,
-    // 			 500);
 	this.Update = function() 
 	{
-		// if (this.left && this.Transform.RelativePosition.x >= this.goalx) {
-		// 	this.Transform.RelativePosition.x -= this.velocity;
-		// } else {
-		// 	this.left = false;
-		// }
-
-		// if (this.up && this.Transform.RelativePosition.y >= this.goaly) {
-		// 	this.Transform.RelativePosition.y -= this.velocity;
-		// } else {
-		// 	this.up = false;
-		// }
-
-		// if (this.right && this.Transform.RelativePosition.x <= this.goalx) {
-		// 	this.Transform.RelativePosition.x += this.velocity;
-		// } else {
-		// 	this.right = false;
-		// }
-
-		// if (this.down && this.Transform.RelativePosition.y <= this.goaly) {
-		// 	this.Transform.RelativePosition.y += this.velocity;
-		// } else {
-		// 	this.down = false;
-		// }
-		if (this.left && this.Transform.RelativePosition.x >= this.goalx) {
-			this.Transform.RelativePosition.x -= this.velocity;
-			
-			
-		} else {
-			this.left = false;
-		}
-
-		if (this.up && this.Transform.RelativePosition.y >= this.goaly) {
-			this.Transform.RelativePosition.y -= this.velocity;
-		} else {
-			this.up = false;
-		}
-
-		if (this.right && this.Transform.RelativePosition.x <= this.goalx) {
-			this.Transform.RelativePosition.x += this.velocity;
-		} else {
-			this.right = false;
-		}
-
-		if (this.down && this.Transform.RelativePosition.y <= this.goaly) {
-			this.Transform.RelativePosition.y += this.velocity;
-		} else {
-			this.down = false;
-		}
-		if(this.canMove){
-			// Left
-			if (Input.KeysDown[37] && this.gridPos.x > 0) {
-				this.gridPos.x --;
-				this.goalx = this.Transform.RelativePosition.x - this.grid.caseLength;
-				this.goaly = this.Transform.RelativePosition.y;
-				this.canMove = false;
-				this.left = true;
-			} 
-			// Top
-			else if (Input.KeysDown[38] && this.gridPos.y > 0) {
-				this.gridPos.y --;
-				this.goaly = this.Transform.RelativePosition.y - this.grid.caseLength;
-				this.goalx = this.Transform.RelativePosition.x;
-				this.canMove = false;
-				this.up = true;
-			}
-			// Right
-			else if (Input.KeysDown[39] && this.gridPos.x < this.grid.cases-1) {
-				this.gridPos.x ++;
-				this.goalx = this.Transform.RelativePosition.x + this.grid.caseLength;
-				this.goaly = this.Transform.RelativePosition.y;
-				this.canMove = false;
-				this.right = true;
-			}
-			// Both
-			else if (Input.KeysDown[40] && this.gridPos.y < this.grid.cases-1) {
-				this.gridPos.y ++;
-				this.goaly = this.Transform.RelativePosition.y + this.grid.caseLength;
-				this.goalx = this.Transform.RelativePosition.x;
-				this.canMove = false;
-				this.down = true;
-			} 
-
-		} 
-
-		if(!this.left && !this.up && !this.right && !this.down){
-			this.grid.Tiles[IndexFromCoord(this.gridPos.x,this.gridPos.y, this.grid.cases)] = this.color;
-			this.catchCoin();
-		}
-
-		if(!Input.KeysDown[37] && !Input.KeysDown[38] && !Input.KeysDown[39] && !Input.KeysDown[40]
-			&& !this.left && !this.up && !this.right && !this.down){
-
-			this.canMove = true;
-			this.Transform.RelativePosition.x = this.goalx;
-			this.Transform.RelativePosition.y = this.goaly;
-		}
 		this.Renderer.Draw();
 		this.PostUpdate();	
 	};
@@ -590,24 +463,6 @@ function Player(pos)
 	{
 		this.Physics.countHovered = 0;
 	}
-	this.catchCoin = function()
-	{
-		for (var i = 0; i < Application.LoadedScene.GameObjects.length; i++) {
-			if(Application.LoadedScene.GameObjects[i].name=="Coin" )
-				if( Application.LoadedScene.GameObjects[i].gridPos.x == this.gridPos.x 
-					&& Application.LoadedScene.GameObjects[i].gridPos.y == this.gridPos.y){
-					Application.LoadedScene.GameObjects.splice(i,1);
-					i--;
-				for (var i = 0; i < this.grid.Tiles.length; i++) {
-					if(this.grid.Tiles[i] == this.color){
-						this.score ++;
-						this.grid.Tiles[i] = "rgba(255,255,255,1)";
-					}
-				}
-				console.log(this.score);
-				
-			}
-		}
-	}
+
 	this.Awake();
 }

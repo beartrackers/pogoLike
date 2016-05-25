@@ -52,6 +52,8 @@ function ScenePlatform()
 			var nbColumn = this.nbPlayer*2;
 
 			this.grid = new Grid(0, 0, canvas.height, nbColumn);
+			var posCoin = new Vector(Math.Random.RangeInt(0,this.grid.cases-1,true),Math.Random.RangeInt(0,this.grid.cases-1,true));
+			this.GameObjects.push(new Coin(posCoin));
 			var posPlayer = new Vector(Math.Random.RangeInt(0,this.grid.cases-1,true),Math.Random.RangeInt(0,this.grid.cases-1,true));
 			this.GameObjects.push(new Player(posPlayer));
 			this.started = true;
@@ -69,6 +71,7 @@ function ScenePlatform()
 
 		if (!Application.GamePaused) 
 		{
+			
 			this.grid.Draw();
 			for (var i = 0; i < this.GameObjects.length; i++) 
 			{
