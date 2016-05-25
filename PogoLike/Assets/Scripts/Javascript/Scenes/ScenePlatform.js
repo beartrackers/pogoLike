@@ -71,7 +71,11 @@ function ScenePlatform()
 
 		if (!Application.GamePaused) 
 		{
-			
+			// for (var i = 0; i < this.GameObjects.length; i++) {
+			// 	if(this.GameObjects[i].name == "Splash"){
+
+			// 	}
+			// }
 			this.grid.Draw();
 			for (var i = 0; i < this.GameObjects.length; i++) 
 			{

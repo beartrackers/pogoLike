@@ -339,7 +339,7 @@ function Player(pos)
 		if (!this.started) {
 			// operation start
 			this.Renderer.Material.Source = Images["pig"]
-			this.color = Math.Random.ColorRGB();
+			this.color = Math.Random.ColorRGBA(.3);
 			this.SetPosition(((this.gridPos.x) * this.grid.caseLength) + this.grid.caseLength/2 ,
 							((this.gridPos.y) * this.grid.caseLength) + this.grid.caseLength/2);
 			this.SetSize(this.grid.caseLength, this.grid.caseLength);
@@ -515,13 +515,14 @@ function Player(pos)
 		} 
 
 		if(!this.left && !this.up && !this.right && !this.down){
+			
 			this.grid.Tiles[IndexFromCoord(this.gridPos.x,this.gridPos.y, this.grid.cases)] = this.color;
 			this.catchCoin();
 		}
 
+
 		if(!Input.KeysDown[37] && !Input.KeysDown[38] && !Input.KeysDown[39] && !Input.KeysDown[40]
 			&& !this.left && !this.up && !this.right && !this.down){
-
 			this.canMove = true;
 			this.Transform.RelativePosition.x = this.goalx;
 			this.Transform.RelativePosition.y = this.goaly;
@@ -605,7 +606,7 @@ function Player(pos)
 				for (var i = 0; i < this.grid.Tiles.length; i++) {
 					if(this.grid.Tiles[i] == this.color){
 						this.score ++;
-						this.grid.Tiles[i] = "rgba(255,255,255,1)";
+						this.grid.Tiles[i] = "rgba(255,255,255,0)";
 					}
 				}
 				console.log(this.score);

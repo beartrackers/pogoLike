@@ -15,7 +15,7 @@ function Grid(_x, _y, _length, _cases)
 	this.length = _length;
 	this.cases = _cases;
 	this.caseLength = this.length / this.cases
-	this.Tiles = new Array(this.cases * this.cases).fill("rgb(255,255,255");
+	this.Tiles = new Array(this.cases * this.cases).fill("rgba(255,255,255,0)");
 	this.BestPath = null;
 
 /**
@@ -31,7 +31,14 @@ function Grid(_x, _y, _length, _cases)
 		for (var i = 0; i * this.caseLength < this.length; i++) 
 		{
 			for (var j = 0; j * this.caseLength < this.length; j++) 
-			{
+			{	
+				ctx.globalAlpha = 0.75;
+				ctx.drawImage(Images["sand"],
+								i* this.caseLength,
+								j* this.caseLength,
+								this.caseLength,
+								this.caseLength);
+				ctx.globalAlpha = 1;
 				ctx.fillStyle = this.Tiles[IndexFromCoord(i,j, this.cases)];
 				ctx.fillRect(this.x + i * this.caseLength, this.y + j * this.caseLength, this.caseLength, this.caseLength);
 				ctx.strokeRect(this.x + i * this.caseLength, this.y + j * this.caseLength, this.caseLength, this.caseLength);
