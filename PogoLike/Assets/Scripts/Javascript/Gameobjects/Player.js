@@ -342,7 +342,7 @@ function Player(pos)
 		if (!this.started) {
 			// operation start
 			this.Renderer.Material.Source = Images["pig"]
-			this.color = Math.Random.ColorRGBA(.3);
+			this.color = Math.Random.ColorRGBA(.5);
 			
 			this.SetPosition(((this.gridPos.x) * this.grid.caseLength) + this.grid.caseLength/2 ,
 							((this.gridPos.y) * this.grid.caseLength) + this.grid.caseLength/2);
@@ -537,8 +537,13 @@ function Player(pos)
 							 this.splahPosition.y - (this.grid.caseLength * this.splahScale) * this.Transform.Pivot.y,
 							 this.grid.caseLength * this.splahScale,
 							 this.grid.caseLength * this.splahScale);
-			} else {
+
+			} else if(!Input.KeysDown[37] && !Input.KeysDown[38] && !Input.KeysDown[39] && !Input.KeysDown[40]
+						&& !this.left && !this.up && !this.right && !this.down){
+
 				this.canMove = true;
+				this.Transform.RelativePosition.x = this.goalx;
+				this.Transform.RelativePosition.y = this.goaly;				
 			}
 
 			if (this.splahScale >= 1) {
@@ -552,12 +557,12 @@ function Player(pos)
 			this.catchCoin();
 		}
 
-		if(!Input.KeysDown[37] && !Input.KeysDown[38] && !Input.KeysDown[39] && !Input.KeysDown[40]
-			&& !this.left && !this.up && !this.right && !this.down){
-			
-			this.Transform.RelativePosition.x = this.goalx;
-			this.Transform.RelativePosition.y = this.goaly;
-		}
+		// if(!Input.KeysDown[37] && !Input.KeysDown[38] && !Input.KeysDown[39] && !Input.KeysDown[40]
+		// 	&& !this.left && !this.up && !this.right && !this.down){
+		// 	this.canMove = true;
+		// 	this.Transform.RelativePosition.x = this.goalx;
+		// 	this.Transform.RelativePosition.y = this.goaly;
+		// }
 
 		this.Renderer.Draw();
 
