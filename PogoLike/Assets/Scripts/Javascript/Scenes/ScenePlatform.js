@@ -51,24 +51,19 @@ function ScenePlatform()
 			Time.SetTimeWhenSceneBegin();
 			// operation start
 
-			this.nbPlayer = 8;
+			this.nbPlayer = this.players.length;
 
 			var nbColumn = this.nbPlayer*2;
-
+			
 			this.grid = new Grid(0, 0, canvas.height, nbColumn);
 			var posCoin = new Vector(Math.Random.RangeInt(0,this.grid.cases-1,true),Math.Random.RangeInt(0,this.grid.cases-1,true));
 			this.GameObjects.push(new Coin(posCoin));
-			var posPlayer = new Vector(Math.Random.RangeInt(0,this.grid.cases-1,true),Math.Random.RangeInt(0,this.grid.cases-1,true));
-			
-			var player = new Player(posPlayer);
-			var player1 = new Player(new Vector(Math.Random.RangeInt(0,this.grid.cases-1,true),Math.Random.RangeInt(0,this.grid.cases-1,true)));
-			var player2 = new Player(new Vector(Math.Random.RangeInt(0,this.grid.cases-1,true),Math.Random.RangeInt(0,this.grid.cases-1,true)));
-			var player3 = new Player(new Vector(Math.Random.RangeInt(0,this.grid.cases-1,true),Math.Random.RangeInt(0,this.grid.cases-1,true)));
+			for (var i = 0; i < this.players.length; i++) {
+				this.players[i].gridPos = new Vector(Math.Random.RangeInt(0,this.grid.cases-1,true),
+													Math.Random.RangeInt(0,this.grid.cases-1,true));
+			}
 
-			this.players.push(player, player1, player2, player3);
-			this.GameObjects.push(player, player1, player2, player3);
-
-			this.timer = new Timer(10);
+			this.timer = new Timer(2);
 
 			this.started = true;
 			Print('System:Scene ' + this.name + " Started !");
@@ -90,6 +85,9 @@ function ScenePlatform()
 
 			// 	}
 			// }
+			if(this.timer.duration == this.timer.currentTime){
+				Application.LoadedScene = Scenes["SceneEndGame"];
+			}
 			this.grid.Draw();
 			for (var i = 0; i < this.GameObjects.length; i++) 
 			{
@@ -122,7 +120,7 @@ function ScenePlatform()
 			for (var i = 0; i < this.players.length; i++) {
 				ctx.font = "30px Arial";
 				ctx.fillStyle = "black";
-				ctx.fillText( this.players[i].name + " : " + this.players[i].score, canvas.height + 50, (i + 3) * 40 );
+				ctx.fillText( this.players[i].playerName + " : " + this.players[i].score, canvas.height + 50, (i + 3) * 40 );
 			}
 
 			ctx.fillText("time : " + (this.timer.duration - Math.floor(this.timer.currentTime)) , canvas.height + 50, 40 );

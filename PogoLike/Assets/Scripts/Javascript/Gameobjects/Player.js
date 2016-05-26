@@ -26,20 +26,20 @@
  *
  *
  * */
-function Player(pos) 
+function Player(img,name,isHost) 
 {
 	this.name = "Player";
 	this.enabled = true;
 	this.started = false;
 	this.rendered = true;
 	this.fixedToCamera = true;
-
+	this.playerName = name || "player";
 	this.MouseOffset = new Vector();
-
+	this.isHost = isHost || false;
 	this.Parent = null;
-	this.gridPos = pos;
+	this.gridPos = new Vector();
 	this.color = "";
-	this.grid = Application.LoadedScene.grid;
+	this.grid ;
 	this.canMove = true;
 	this.left = false;
 	this.up = false;
@@ -204,7 +204,7 @@ function Player(pos)
 		That: this.Transform,
 		Material: 
 		{
-			Source: "",
+			Source: img || Images["pig"],
 			SizeFrame: new Vector(),
 			CurrentFrame: new Vector(),
 		},
@@ -341,9 +341,8 @@ function Player(pos)
 	{
 		if (!this.started) {
 			// operation start
-			this.Renderer.Material.Source = Images["pig"]
 			this.color = Math.Random.ColorRGBA(.5);
-			
+			this.grid=Application.LoadedScene.grid;
 			this.SetPosition(((this.gridPos.x) * this.grid.caseLength) + this.grid.caseLength/2 ,
 							((this.gridPos.y) * this.grid.caseLength) + this.grid.caseLength/2);
 			this.SetSize(this.grid.caseLength, this.grid.caseLength);
