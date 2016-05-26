@@ -25,6 +25,10 @@ function ScenePlatform()
 	this.nbPlayer = 0;
 	this.grid;
 
+	this.players = [];
+
+	this.timer;
+
 	this.WorldSize = new Vector(4096,4096);
 
 	/**
@@ -55,7 +59,17 @@ function ScenePlatform()
 			var posCoin = new Vector(Math.Random.RangeInt(0,this.grid.cases-1,true),Math.Random.RangeInt(0,this.grid.cases-1,true));
 			this.GameObjects.push(new Coin(posCoin));
 			var posPlayer = new Vector(Math.Random.RangeInt(0,this.grid.cases-1,true),Math.Random.RangeInt(0,this.grid.cases-1,true));
-			this.GameObjects.push(new Player(posPlayer));
+			
+			var player = new Player(posPlayer);
+			var player1 = new Player(new Vector(Math.Random.RangeInt(0,this.grid.cases-1,true),Math.Random.RangeInt(0,this.grid.cases-1,true)));
+			var player2 = new Player(new Vector(Math.Random.RangeInt(0,this.grid.cases-1,true),Math.Random.RangeInt(0,this.grid.cases-1,true)));
+			var player3 = new Player(new Vector(Math.Random.RangeInt(0,this.grid.cases-1,true),Math.Random.RangeInt(0,this.grid.cases-1,true)));
+
+			this.players.push(player, player1, player2, player3);
+			this.GameObjects.push(player, player1, player2, player3);
+
+			this.timer = new Timer(10);
+
 			this.started = true;
 			Print('System:Scene ' + this.name + " Started !");
 			Time.SetTimeWhenSceneLoaded();
@@ -101,6 +115,18 @@ function ScenePlatform()
 		if (!Application.GamePaused) 
 		{
 			//Show UI
+			this.players.sort(function(a, b){
+				return b.score - a.score;
+			});
+
+			for (var i = 0; i < this.players.length; i++) {
+				ctx.font = "30px Arial";
+				ctx.fillStyle = "black";
+				ctx.fillText( this.players[i].name + " : " + this.players[i].score, canvas.height + 50, (i + 3) * 40 );
+			}
+
+			ctx.fillText("time : " + (this.timer.duration - Math.floor(this.timer.currentTime)) , canvas.height + 50, 40 );
+
 		} 
 		else 
 		{

@@ -54,6 +54,7 @@ function Loader()
 			Scenes["SceneSave"]  = new SceneSave();
 			Scenes["SceneIA"]  = new SceneIA();		
 			Scenes["ScenePlatform"]  = new ScenePlatform();
+			Scenes["SceneHome"]  = new SceneHome();
 
 			LoadImages();
 			this.started = true;

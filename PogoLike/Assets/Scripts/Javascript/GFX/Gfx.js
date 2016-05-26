@@ -22,7 +22,7 @@ var Gfx =
 		**/
 		Greyscale : function(_affectedZone) 
 		{
-			var pixels = ctx.getImageData(_affectedZone.x, _affectedZone.x, _affectedZone.w, _affectedZone.h);
+			var pixels = ctx.getImageData(_affectedZone.x, _affectedZone.y, _affectedZone.w, _affectedZone.h);
 			var d = pixels.data;
 
 			for (var i = 0; i < d.length; i+=4) 
@@ -82,7 +82,7 @@ var Gfx =
 		{
 			Gfx.Filters.Greyscale(_affectedZone);
 			ctx.fillStyle = _color;
-			ctx.fillRect(_affectedZone.x, _affectedZone.x, _affectedZone.w, _affectedZone.h)
+			ctx.fillRect(_affectedZone.x, _affectedZone.y, _affectedZone.w, _affectedZone.h)
 
 		},
 
@@ -124,7 +124,7 @@ var Gfx =
 		**/
 		Flash: function(_affectedZone, _power, _color) {
 			ctx.fillStyle = _color;
-			ctx.fillRect(_affectedZone.x, _affectedZone.x, _affectedZone.w, _affectedZone.h);	
+			ctx.fillRect(_affectedZone.x, _affectedZone.y, _affectedZone.w, _affectedZone.h);	
 		}
 	}
 }

@@ -641,14 +641,14 @@ function Player(pos)
 					&& Application.LoadedScene.GameObjects[i].gridPos.y == this.gridPos.y){
 					Application.LoadedScene.GameObjects.splice(i,1);
 					i--;
+					var posCoin = new Vector(Math.Random.RangeInt(0,this.grid.cases-1,true),Math.Random.RangeInt(0,this.grid.cases-1,true));
+					Application.LoadedScene.GameObjects.push(new Coin(posCoin));
 				for (var i = 0; i < this.grid.Tiles.length; i++) {
 					if(this.grid.Tiles[i] == this.color){
 						this.score ++;
 						this.grid.Tiles[i] = "rgba(255,255,255,0)";
 					}
-				}
-				console.log(this.score);
-				
+				}				
 			}
 		}
 	}
